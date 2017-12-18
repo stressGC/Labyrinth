@@ -12,3 +12,10 @@ C:\Users\Georges\OneDrive - De Vinci\ESILV\A4\Design Pattern\TD8 - Probelm 2\PB-
 C:\Users\Georges\OneDrive - De Vinci\ESILV\A4\Design Pattern\TD8 - Probelm 2\PB-Labyrinth\Labyrinth\Labyrinth\bin\Debug\Labyrinth.exe.config
 C:\Users\Georges\OneDrive - De Vinci\ESILV\A4\Design Pattern\TD8 - Probelm 2\PB-Labyrinth\Labyrinth\Labyrinth\bin\Debug\Labyrinth.exe
 C:\Users\Georges\OneDrive - De Vinci\ESILV\A4\Design Pattern\TD8 - Probelm 2\PB-Labyrinth\Labyrinth\Labyrinth\bin\Debug\Labyrinth.pdb
+C:\Users\Georges\OneDrive - De Vinci\ESILV\A4\Design Pattern\TD8 - Probelm 2\PB-Labyrinth\Labyrinth\Git - Laby\Labyrinth\Labyrinth\Labyrinth\bin\Debug\Labyrinth.exe.config
+C:\Users\Georges\OneDrive - De Vinci\ESILV\A4\Design Pattern\TD8 - Probelm 2\PB-Labyrinth\Labyrinth\Git - Laby\Labyrinth\Labyrinth\Labyrinth\bin\Debug\Labyrinth.exe
+C:\Users\Georges\OneDrive - De Vinci\ESILV\A4\Design Pattern\TD8 - Probelm 2\PB-Labyrinth\Labyrinth\Git - Laby\Labyrinth\Labyrinth\Labyrinth\bin\Debug\Labyrinth.pdb
+C:\Users\Georges\OneDrive - De Vinci\ESILV\A4\Design Pattern\TD8 - Probelm 2\PB-Labyrinth\Labyrinth\Git - Laby\Labyrinth\Labyrinth\Labyrinth\obj\Debug\Labyrinth.csprojResolveAssemblyReference.cache
+C:\Users\Georges\OneDrive - De Vinci\ESILV\A4\Design Pattern\TD8 - Probelm 2\PB-Labyrinth\Labyrinth\Git - Laby\Labyrinth\Labyrinth\Labyrinth\obj\Debug\Labyrinth.csproj.CoreCompileInputs.cache
+C:\Users\Georges\OneDrive - De Vinci\ESILV\A4\Design Pattern\TD8 - Probelm 2\PB-Labyrinth\Labyrinth\Git - Laby\Labyrinth\Labyrinth\Labyrinth\obj\Debug\Labyrinth.exe
+C:\Users\Georges\OneDrive - De Vinci\ESILV\A4\Design Pattern\TD8 - Probelm 2\PB-Labyrinth\Labyrinth\Git - Laby\Labyrinth\Labyrinth\Labyrinth\obj\Debug\Labyrinth.pdb
