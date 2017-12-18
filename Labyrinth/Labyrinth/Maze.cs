@@ -148,7 +148,7 @@ namespace Labyrinth
 
             Random rnd = new Random();
 
-            Console.WriteLine(numberToPlace);
+            Console.WriteLine(numberToPlace+" "+ width + " " + height);
 
             while(alreadyPlaced < numberToPlace)
             {
@@ -158,6 +158,7 @@ namespace Labyrinth
                 if(board[coordX, coordY].isEmpty)
                 {
                     board[coordX, coordY].Element = new Fighter();
+                    Console.WriteLine("Fighter placed at (" + coordX + "," + coordY + ")");
                     alreadyPlaced++;
                 }
                  

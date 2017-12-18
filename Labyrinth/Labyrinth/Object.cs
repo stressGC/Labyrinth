@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 
 namespace Labyrinth
 {
-    class Object : InCase
+    class Object : Element
     {
-        int value;
+        int damage;
 
         public Object(int value)
         {
-            this.value = value;
+            this.damage = value;
+        }
+
+        // function called to decrement the damage of an object after it is used
+        public void Use()
+        {
+            this.damage--;
         }
     }
 }

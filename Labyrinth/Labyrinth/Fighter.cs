@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Labyrinth
 {
-    class Fighter : InCase
+    class Fighter : Element
     {
-        int life;
-        int power;
-        List<Object> objects;
-        bool isOffensive;
+        private int life;
+        private int power;
+        private List<Object> objects;
+        private bool isOffensive;
 
         public Fighter()
         {
