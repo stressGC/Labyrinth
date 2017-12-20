@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="Cell.cs" />
     <Compile Include="Fighter.cs" />
-    <Compile Include="Element.cs" />
     <Compile Include="Maze.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="Program.cs" />

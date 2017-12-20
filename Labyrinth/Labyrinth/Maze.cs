@@ -14,6 +14,8 @@ namespace Labyrinth
         private int width;
         private int height;
 
+        private List<Fighter> fighters = new List<Fighter>();
+
         // CONSTRUCTOR
         public Maze(string path)
         {
@@ -155,20 +157,65 @@ namespace Labyrinth
                 int coordX = rnd.Next(0, width);
                 int coordY = rnd.Next(0, height);
 
-                if(board[coordX, coordY].isEmpty)
+                if(board[coordX, coordY].IsEmpty)
                 {
-                    board[coordX, coordY].Element = new Fighter();
-                    Console.WriteLine("Fighter placed at (" + coordX + "," + coordY + ")");
+                    fighters.Add(new Fighter(coordX, coordY));
                     alreadyPlaced++;
                 }
-                 
             }
         }
 
         //launches a Thread per fighter, and start to fight
         private void Start()
         {
+            foreach(Fighter fighter in fighters) // à threader
+            {
+                //TODO
+                if(fighter.IsOffensive)
+                {
+                    fighter.Fight();
+                }
+                else
+                {
+                    fighter.Move();
+                }
+            }
+        }
 
+        // displays the board in console
+        public void Display()
+        {
+            Console.Clear();
+
+            // print the static maze
+            for(int y = 0; y < height; y++)
+            {
+                for(int x = 0; x < width; x++)
+                {
+                    WriteAt(board[x, y].Display(), x, y);
+                }
+            }
+
+            // print the fighters
+            foreach(Fighter fighter in fighters)
+            {
+                WriteAt(fighter.Display(), fighter.X, fighter.Y);
+            }
+        }
+
+        // prints at a given place in the console
+        private void WriteAt(string s, int x, int y)
+        {
+            try
+            {
+                Console.SetCursorPosition(1 + 2 * x, y);
+                Console.Write(s);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.Clear();
+                Console.WriteLine(e.Message);
+            }
         }
 
         public override string ToString()

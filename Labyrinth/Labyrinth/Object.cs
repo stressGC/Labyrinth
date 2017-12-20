@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Labyrinth
 {
-    class Object : Element
+    class Object
     {
-        int damage;
+        private int damage;
 
         public Object(int value)
         {
@@ -19,6 +19,22 @@ namespace Labyrinth
         public void Use()
         {
             this.damage--;
+        }
+
+        // check if object still does damages
+        public bool isUsable()
+        {
+            if(this.damage > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public string Display()
+        {
+            return "@";
         }
     }
 }

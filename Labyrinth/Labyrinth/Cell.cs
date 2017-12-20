@@ -11,13 +11,11 @@ namespace Labyrinth
         // ATTRIBUTES
         string value;
         bool empty;
-        Element element;
 
         // CONSTRUCTOR
         public Cell(string value)
         {
             this.value = value;
-            this.element = null;
 
             switch (this.value)
             {
@@ -46,18 +44,7 @@ namespace Labyrinth
             get { return empty; }
             set { empty = value; }
         }
-        public Element Element
-        {
-            get { return element; }
-            set { element = value; }
-        }
 
-        // METHODS
-        public void SetFighter(Fighter fighter)
-        {
-            this.IsEmpty = false;
-            this.element = fighter;
-        }
         public override string ToString()
         {
             return this.value;
@@ -65,11 +52,19 @@ namespace Labyrinth
 
         public string Display()
         {
-            if(this.value=="1")
+            string str = "";
+            switch (this.value)
             {
-                return "";
+                case "1": //wall
+                    str = "■";
+                    break;
+
+                case "2": // exit
+                    str = "X";
+                    break;
             }
-            return "";
+
+            return str;
         }
     }
 }
