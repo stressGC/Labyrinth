@@ -45,6 +45,7 @@ namespace Labyrinth
             set { empty = value; }
         }
 
+        // METHODS
         public override string ToString()
         {
             return this.value;

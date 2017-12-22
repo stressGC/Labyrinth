@@ -15,6 +15,8 @@ namespace Labyrinth
         private int height;
 
         private List<Fighter> fighters = new List<Fighter>();
+        private List<Object> objects = new List<Object>();
+
 
         // CONSTRUCTOR
         public Maze(string path)
