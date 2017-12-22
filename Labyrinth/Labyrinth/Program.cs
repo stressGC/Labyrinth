@@ -15,10 +15,9 @@ namespace Labyrinth
         static void Main(string[] args)
         {
             Maze maze = new Maze(PATH);
-            maze.Display();
-            Console.ReadKey();
             maze.PlaceFighters(3);
             maze.Display();
+            maze.Start();
 
             Console.ReadKey();
         }

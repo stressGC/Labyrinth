@@ -59,11 +59,9 @@ namespace Labyrinth
                     {
                         for (int i = 0; i < line.Length; i++)
                         {
-                            Console.Write(line[i]);
                             this.board[i, counter] = new Cell(line[i].ToString());
                         }
-
-                        Console.WriteLine();
+                        
                         line = sr.ReadLine();
                         counter++;
                     }
@@ -119,7 +117,7 @@ namespace Labyrinth
                     return size;
                 }
 
-                Console.WriteLine("The file " + path + " has correct size.");
+                //Console.WriteLine("The file " + path + " has correct size.");
 
                 size[0] = lineLength;
                 size[1] = lineCounter;
@@ -150,7 +148,7 @@ namespace Labyrinth
 
             Random rnd = new Random();
 
-            Console.WriteLine(numberToPlace+" "+ width + " " + height);
+            //Console.WriteLine(numberToPlace+" "+ width + " " + height);
 
             while(alreadyPlaced < numberToPlace)
             {
@@ -166,19 +164,27 @@ namespace Labyrinth
         }
 
         //launches a Thread per fighter, and start to fight
-        private void Start()
+        public void Start()
         {
             foreach(Fighter fighter in fighters) // à threader
             {
+                for(int i = 0; i < 20; i++)
+                {
+                    WriteAt("starts moving", 15, 1);
+                    fighter.Move(board);
+                    this.Display();
+                    System.Threading.Thread.Sleep(500);
+                }
+
                 //TODO
-                if(fighter.IsOffensive)
+                /*if(fighter.IsOffensive)
                 {
                     fighter.Fight();
                 }
                 else
                 {
                     fighter.Move();
-                }
+                }*/
             }
         }
 

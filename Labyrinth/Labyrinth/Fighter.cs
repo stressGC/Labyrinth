@@ -17,6 +17,8 @@ namespace Labyrinth
         private List<Object> objects;
         private bool isOffensive;
 
+        Random random = new Random();
+
         // ACCESSORS
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
@@ -34,7 +36,8 @@ namespace Labyrinth
             this.isOffensive = false;
 
 
-            Console.WriteLine("Fighter placed at (" + x + "," + y + ")");
+            //Console.WriteLine("Fighter placed at (" + x + "," + y + ")");
+            //Console.ReadKey();
         }
 
         // METHODS
@@ -43,12 +46,125 @@ namespace Labyrinth
             return "$";
         }
 
-        internal void Move()
+        private void WriteAt(string s, int x, int y)
         {
-            throw new NotImplementedException();
-        } //to implement
+            try
+            {
+                Console.SetCursorPosition(1 + 2 * x, y);
+                Console.Write(s);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.Clear();
+                Console.WriteLine(e.Message);
+            }
+        }
 
-        internal void Fight()
+        // moves the fighter randomly to a possible location near him
+        internal void Move(Cell[,] board)
+        {
+
+            //WriteAt("(" + this.x + "," + this.y + ")", 15, 3);
+            int rnd = random.Next(0, 4);
+            WriteAt(rnd.ToString(), 15, 3);
+
+            switch (rnd) // 0, 1, 2, 3
+            {
+                case 0:
+                    if (CanMoveTop(board))
+                    {
+                        MoveTop();
+                    }
+                    else
+                    {
+                        this.Move(board);
+                    }
+                    break;
+                case 1:
+                    if (CanMoveRight(board))
+                    {
+                        MoveRight();
+                    }
+                    else
+                    {
+                        this.Move(board);
+                    }
+                    break;
+                case 2:
+                    if (CanMoveBottom(board))
+                    {
+                        MoveBottom();
+                    }
+                    else
+                    {
+                        this.Move(board);
+                    }
+                    break;
+                case 3:
+                    if (CanMoveLeft(board))
+                    {
+                        MoveLeft();
+                    }
+                    else
+                    {
+                        this.Move(board);
+                    }
+                    break;
+            }
+
+        }
+
+        private bool CanMoveTop(Cell[,] board)
+        {
+            if (this.Y > 0 && board[this.x, this.y - 1].IsEmpty && board[this.x, this.y - 1].Value != "1")
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool CanMoveRight(Cell[,] board)
+        {
+            if (this.X > board.GetLength(0) - 1 && board[this.x + 1, this.y].IsEmpty && board[this.x + 1, this.y].Value != "1")
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool CanMoveBottom(Cell[,] board)
+        {
+            if (this.Y > board.GetLength(1) - 1 && board[this.x, this.y + 1].IsEmpty && board[this.x, this.y + 1].Value != "1")
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool CanMoveLeft(Cell[,] board)
+        {
+            if (this.X > 0 && board[this.x, this.y].Value != "1"&& board[this.x - 1, this.y].IsEmpty) 
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void MoveTop()
+        {
+            this.Y--;
+        }
+        private void MoveRight()
+        {
+            this.X++;
+        }
+        private void MoveBottom()
+        {
+            this.Y++;
+        }
+        private void MoveLeft()
+        {
+            this.X--;
+        }
+
+        public void Fight()
         {
             throw new NotImplementedException();
         } //to implement
