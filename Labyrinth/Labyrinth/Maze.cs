@@ -168,12 +168,12 @@ namespace Labyrinth
         {
             foreach(Fighter fighter in fighters) // à threader
             {
-                for(int i = 0; i < 20; i++)
+                for(int i = 0; i < 400; i++)
                 {
                     WriteAt("starts moving", 15, 1);
                     fighter.Move(board);
                     this.Display();
-                    System.Threading.Thread.Sleep(500);
+                    System.Threading.Thread.Sleep(200);
                 }
 
                 //TODO

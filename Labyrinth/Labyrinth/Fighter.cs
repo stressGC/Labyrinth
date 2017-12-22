@@ -63,10 +63,8 @@ namespace Labyrinth
         // moves the fighter randomly to a possible location near him
         internal void Move(Cell[,] board)
         {
-
-            //WriteAt("(" + this.x + "," + this.y + ")", 15, 3);
             int rnd = random.Next(0, 4);
-            WriteAt(rnd.ToString(), 15, 3);
+            //WriteAt(rnd.ToString(), 15, 3);
 
             switch (rnd) // 0, 1, 2, 3
             {
@@ -74,6 +72,7 @@ namespace Labyrinth
                     if (CanMoveTop(board))
                     {
                         MoveTop();
+                        CheckForWin(board);
                     }
                     else
                     {
@@ -84,6 +83,7 @@ namespace Labyrinth
                     if (CanMoveRight(board))
                     {
                         MoveRight();
+                        CheckForWin(board);
                     }
                     else
                     {
@@ -94,6 +94,7 @@ namespace Labyrinth
                     if (CanMoveBottom(board))
                     {
                         MoveBottom();
+                        CheckForWin(board);
                     }
                     else
                     {
@@ -104,6 +105,7 @@ namespace Labyrinth
                     if (CanMoveLeft(board))
                     {
                         MoveLeft();
+                        CheckForWin(board);
                     }
                     else
                     {
@@ -124,7 +126,7 @@ namespace Labyrinth
         }
         private bool CanMoveRight(Cell[,] board)
         {
-            if (this.X > board.GetLength(0) - 1 && board[this.x + 1, this.y].IsEmpty && board[this.x + 1, this.y].Value != "1")
+            if (this.X < board.GetLength(0) - 1 && board[this.x + 1, this.y].IsEmpty && board[this.x + 1, this.y].Value != "1")
             {
                 return true;
             }
@@ -132,10 +134,11 @@ namespace Labyrinth
         }
         private bool CanMoveBottom(Cell[,] board)
         {
-            if (this.Y > board.GetLength(1) - 1 && board[this.x, this.y + 1].IsEmpty && board[this.x, this.y + 1].Value != "1")
+            if (this.Y < board.GetLength(1) - 1 && board[this.x, this.y + 1].IsEmpty && board[this.x, this.y + 1].Value != "1")
             {
                 return true;
             }
+
             return false;
         }
         private bool CanMoveLeft(Cell[,] board)
@@ -162,6 +165,18 @@ namespace Labyrinth
         private void MoveLeft()
         {
             this.X--;
+        }
+
+        private void CheckForWin(Cell[,] board)
+        {
+            if(board[this.x, this.y].Value=="2")
+            {
+                //has win
+                Console.Clear();
+                Console.WriteLine("Fighter has won");
+                Console.ReadKey();
+                Environment.Exit(0);
+            }
         }
 
         public void Fight()
