@@ -19,7 +19,9 @@ namespace Labyrinth
         private List<Object> objects = new List<Object>();
 
         private static Random rnd = new Random();
-        
+
+        private static Mutex mut = new Mutex();
+
         // CONSTRUCTOR
         public Maze(string path)
         {
@@ -238,11 +240,13 @@ namespace Labyrinth
         {
             Object obj= CheckForCell(fighter.X, fighter.Y);
 
+            mut.WaitOne();
             if (obj != null)
             {
                 fighter.AddObjectInList(obj);
                 objects.Remove(obj);
             }
+            mut.ReleaseMutex();
             //else
                 //Console.WriteLine("Erreur fdp");
                 
