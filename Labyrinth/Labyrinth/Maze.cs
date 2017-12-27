@@ -210,6 +210,7 @@ namespace Labyrinth
                     WriteAt("starts moving", 15, 1);
                     fighter.Move(board);
                     this.Display();
+                    FighterGetObject(fighter);
                     System.Threading.Thread.Sleep(200);
                 }
 
@@ -223,6 +224,32 @@ namespace Labyrinth
                     fighter.Move();
                 }*/
             }
+        }
+
+        // returns the object if there is an object in the cell or return null
+        public Object CheckForCell(int x,int y)
+        {
+            foreach(Object obj in objects)
+            {
+                if (obj.X == x && obj.Y == y)
+                    return obj;
+            }
+            return null;
+        }
+
+        // fighter gets an object
+        public void FighterGetObject(Fighter fighter)
+        {
+            Object obj= CheckForCell(fighter.X, fighter.Y);
+
+            if (obj != null)
+            {
+                fighter.AddObjectInList(obj);
+                objects.Remove(obj);
+            }
+            //else
+                //Console.WriteLine("Erreur fdp");
+                
         }
 
         // displays the board in console

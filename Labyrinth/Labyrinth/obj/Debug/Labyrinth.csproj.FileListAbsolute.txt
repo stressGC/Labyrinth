@@ -19,3 +19,10 @@ C:\Users\Georges\OneDrive - De Vinci\ESILV\A4\Design Pattern\TD8 - Probelm 2\PB-
 C:\Users\Georges\OneDrive - De Vinci\ESILV\A4\Design Pattern\TD8 - Probelm 2\PB-Labyrinth\Labyrinth\Git - Laby\Labyrinth\Labyrinth\Labyrinth\obj\Debug\Labyrinth.csproj.CoreCompileInputs.cache
 C:\Users\Georges\OneDrive - De Vinci\ESILV\A4\Design Pattern\TD8 - Probelm 2\PB-Labyrinth\Labyrinth\Git - Laby\Labyrinth\Labyrinth\Labyrinth\obj\Debug\Labyrinth.exe
 C:\Users\Georges\OneDrive - De Vinci\ESILV\A4\Design Pattern\TD8 - Probelm 2\PB-Labyrinth\Labyrinth\Git - Laby\Labyrinth\Labyrinth\Labyrinth\obj\Debug\Labyrinth.pdb
+D:\ESILV\annee4\Pattern Design\LabGit\Labyrinth\Labyrinth\Labyrinth\bin\Debug\Labyrinth.exe.config
+D:\ESILV\annee4\Pattern Design\LabGit\Labyrinth\Labyrinth\Labyrinth\bin\Debug\Labyrinth.exe
+D:\ESILV\annee4\Pattern Design\LabGit\Labyrinth\Labyrinth\Labyrinth\bin\Debug\Labyrinth.pdb
+D:\ESILV\annee4\Pattern Design\LabGit\Labyrinth\Labyrinth\Labyrinth\obj\Debug\Labyrinth.csprojResolveAssemblyReference.cache
+D:\ESILV\annee4\Pattern Design\LabGit\Labyrinth\Labyrinth\Labyrinth\obj\Debug\Labyrinth.csproj.CoreCompileInputs.cache
+D:\ESILV\annee4\Pattern Design\LabGit\Labyrinth\Labyrinth\Labyrinth\obj\Debug\Labyrinth.exe
+D:\ESILV\annee4\Pattern Design\LabGit\Labyrinth\Labyrinth\Labyrinth\obj\Debug\Labyrinth.pdb
