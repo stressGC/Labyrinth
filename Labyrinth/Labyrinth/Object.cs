@@ -9,10 +9,17 @@ namespace Labyrinth
     class Object
     {
         private int damage;
+        private int x;
+        private int y;
 
-        public Object(int value)
+        public int X { get => x; set => x = value; }
+        public int Y { get => y; set => y = value; }
+
+        public Object(int damage, int x, int y)
         {
-            this.damage = value;
+            this.damage = damage;
+            this.x = x;
+            this.y = y;
         }
 
         // function called to decrement the damage of an object after it is used

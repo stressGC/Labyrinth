@@ -25,7 +25,7 @@ namespace Labyrinth
             this.width = size[0];
             this.height = size[1];
 
-            if(!ParseIntoCells(path))
+            if (!ParseIntoCells(path))
             {
                 Console.WriteLine("Error in the Maze constructor");
             }
@@ -63,7 +63,7 @@ namespace Labyrinth
                         {
                             this.board[i, counter] = new Cell(line[i].ToString());
                         }
-                        
+
                         line = sr.ReadLine();
                         counter++;
                     }
@@ -140,7 +140,6 @@ namespace Labyrinth
 
         // METHODS
 
-
         // places the fighter at random spots of the board
         public void PlaceFighters(int percentage)
         {
@@ -152,12 +151,12 @@ namespace Labyrinth
 
             //Console.WriteLine(numberToPlace+" "+ width + " " + height);
 
-            while(alreadyPlaced < numberToPlace)
+            while (alreadyPlaced < numberToPlace)
             {
                 int coordX = rnd.Next(0, width);
                 int coordY = rnd.Next(0, height);
 
-                if(board[coordX, coordY].IsEmpty)
+                if (board[coordX, coordY].IsEmpty)
                 {
                     fighters.Add(new Fighter(coordX, coordY));
                     alreadyPlaced++;
@@ -165,12 +164,48 @@ namespace Labyrinth
             }
         }
 
+        // places the objects ramdomly on empty cells
+        public void PlaceObjectsRamdomly(int percentage)
+        {
+            int numberToPlace = width * height * percentage / 100;
+
+            Random rnd = new Random();
+
+            //Console.WriteLine(numberToPlace+" "+ width + " " + height);
+            for(int y = 0; y < this.height; y++)
+            {
+                for(int x = 0; x < this.width; x++)
+                {
+                    int randomInt = rnd.Next(0, 100);
+
+
+                    if (board[x, y].IsEmpty && !CheckForFighter(x, y) && randomInt < percentage)
+                    {
+                        objects.Add(new Object(rnd.Next(1, 10), x, y));
+                    }
+                }
+            }
+        }
+
+        // checks coordinates to see if there is no fighters
+        private bool CheckForFighter(int coordX, int coordY)
+        {
+            foreach(Fighter fighter in fighters)
+            {
+                if(fighter.X.Equals(coordX) && fighter.Y.Equals(coordY))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         //launches a Thread per fighter, and start to fight
         public void Start()
         {
-            foreach(Fighter fighter in fighters) // à threader
+            foreach (Fighter fighter in fighters) // à threader
             {
-                for(int i = 0; i < 400; i++)
+                for (int i = 0; i < 400; i++)
                 {
                     WriteAt("starts moving", 15, 1);
                     fighter.Move(board);
@@ -196,18 +231,24 @@ namespace Labyrinth
             Console.Clear();
 
             // print the static maze
-            for(int y = 0; y < height; y++)
+            for (int y = 0; y < height; y++)
             {
-                for(int x = 0; x < width; x++)
+                for (int x = 0; x < width; x++)
                 {
                     WriteAt(board[x, y].Display(), x, y);
                 }
             }
 
             // print the fighters
-            foreach(Fighter fighter in fighters)
+            foreach (Fighter fighter in fighters)
             {
                 WriteAt(fighter.Display(), fighter.X, fighter.Y);
+            }
+
+            // print the objects
+            foreach (Object obj in objects)
+            {
+                WriteAt(obj.Display(), obj.X, obj.Y);
             }
         }
 
@@ -230,9 +271,9 @@ namespace Labyrinth
         {
             string msg = "";
 
-            for(int y = 0; y < height; y++)
+            for (int y = 0; y < height; y++)
             {
-                for(int x = 0; x < width; x++)
+                for (int x = 0; x < width; x++)
                 {
                     msg += this.board[x, y].ToString() + " ";
                 }

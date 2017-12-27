@@ -64,7 +64,6 @@ namespace Labyrinth
         internal void Move(Cell[,] board)
         {
             int rnd = random.Next(0, 4);
-            //WriteAt(rnd.ToString(), 15, 3);
 
             switch (rnd) // 0, 1, 2, 3
             {
@@ -182,6 +181,6 @@ namespace Labyrinth
         public void Fight()
         {
             throw new NotImplementedException();
-        } //to implement
+        }
     }
 }
