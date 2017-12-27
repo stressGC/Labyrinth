@@ -205,20 +205,10 @@ namespace Labyrinth
             new Thread(Display).Start();
             foreach (Fighter fighter in fighters) // à threader
             {
-<<<<<<< HEAD
                 new Thread(() => DoInBackground(fighter)).Start();
             }
         }
-=======
-                for (int i = 0; i < 400; i++)
-                {
-                    WriteAt("starts moving", 15, 1);
-                    fighter.Move(board);
-                    this.Display();
-                    FighterGetObject(fighter);
-                    System.Threading.Thread.Sleep(200);
-                }
->>>>>>> d91cfaa1230071d7d1d92b1e7b166c0321a31984
+
 
         private void DoInBackground(Fighter fighter)
         {
@@ -227,6 +217,7 @@ namespace Labyrinth
             while(true)
             {
                 fighter.Move(this.board);
+                FighterGetObject(fighter);
                 Thread.Sleep(500);
             }
         }
