@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Labyrinth
@@ -17,7 +18,8 @@ namespace Labyrinth
         private List<Fighter> fighters = new List<Fighter>();
         private List<Object> objects = new List<Object>();
 
-
+        private static Random rnd = new Random();
+        
         // CONSTRUCTOR
         public Maze(string path)
         {
@@ -144,10 +146,8 @@ namespace Labyrinth
         public void PlaceFighters(int percentage)
         {
             //double numberToPlace = width * height * percentage / 100;
-            int numberToPlace = 1;
+            int numberToPlace = 5;
             int alreadyPlaced = 0;
-
-            Random rnd = new Random();
 
             //Console.WriteLine(numberToPlace+" "+ width + " " + height);
 
@@ -177,8 +177,7 @@ namespace Labyrinth
                 for(int x = 0; x < this.width; x++)
                 {
                     int randomInt = rnd.Next(0, 100);
-
-
+                    
                     if (board[x, y].IsEmpty && !CheckForFighter(x, y) && randomInt < percentage)
                     {
                         objects.Add(new Object(rnd.Next(1, 10), x, y));
@@ -203,26 +202,23 @@ namespace Labyrinth
         //launches a Thread per fighter, and start to fight
         public void Start()
         {
+            new Thread(Display).Start();
             foreach (Fighter fighter in fighters) // à threader
             {
-                for (int i = 0; i < 400; i++)
-                {
-                    WriteAt("starts moving", 15, 1);
-                    fighter.Move(board);
-                    this.Display();
-                    FighterGetObject(fighter);
-                    System.Threading.Thread.Sleep(200);
-                }
+                new Thread(() => DoInBackground(fighter)).Start();
+            }
+        }
 
-                //TODO
-                /*if(fighter.IsOffensive)
-                {
-                    fighter.Fight();
-                }
-                else
-                {
-                    fighter.Move();
-                }*/
+
+        private void DoInBackground(Fighter fighter)
+        {
+            int number = rnd.Next(0, 1000);
+            Console.WriteLine("New Task with id : " + number.ToString());
+            while(true)
+            {
+                fighter.Move(this.board);
+                FighterGetObject(fighter);
+                Thread.Sleep(500);
             }
         }
 
@@ -255,27 +251,31 @@ namespace Labyrinth
         // displays the board in console
         public void Display()
         {
-            Console.Clear();
-
-            // print the static maze
-            for (int y = 0; y < height; y++)
+            while(true)
             {
-                for (int x = 0; x < width; x++)
+                Console.Clear();
+
+                // print the static maze
+                for (int y = 0; y < height; y++)
                 {
-                    WriteAt(board[x, y].Display(), x, y);
+                    for (int x = 0; x < width; x++)
+                    {
+                        WriteAt(board[x, y].Display(), x, y);
+                    }
                 }
-            }
 
-            // print the fighters
-            foreach (Fighter fighter in fighters)
-            {
-                WriteAt(fighter.Display(), fighter.X, fighter.Y);
-            }
+                // print the fighters
+                foreach (Fighter fighter in fighters)
+                {
+                    WriteAt(fighter.Display(), fighter.X, fighter.Y);
+                }
 
-            // print the objects
-            foreach (Object obj in objects)
-            {
-                WriteAt(obj.Display(), obj.X, obj.Y);
+                // print the objects
+                foreach (Object obj in objects)
+                {
+                    WriteAt(obj.Display(), obj.X, obj.Y);
+                }
+                Thread.Sleep(100);
             }
         }
 

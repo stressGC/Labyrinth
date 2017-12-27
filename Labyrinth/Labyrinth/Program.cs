@@ -17,10 +17,11 @@ namespace Labyrinth
             Maze maze = new Maze(PATH);
             maze.PlaceFighters(3);
             maze.PlaceObjectsRamdomly(30);
-            maze.Display();
             maze.Start();
 
             Console.ReadKey();
         }
+
+
     }
 }
