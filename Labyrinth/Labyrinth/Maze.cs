@@ -205,9 +205,20 @@ namespace Labyrinth
             new Thread(Display).Start();
             foreach (Fighter fighter in fighters) // à threader
             {
+<<<<<<< HEAD
                 new Thread(() => DoInBackground(fighter)).Start();
             }
         }
+=======
+                for (int i = 0; i < 400; i++)
+                {
+                    WriteAt("starts moving", 15, 1);
+                    fighter.Move(board);
+                    this.Display();
+                    FighterGetObject(fighter);
+                    System.Threading.Thread.Sleep(200);
+                }
+>>>>>>> d91cfaa1230071d7d1d92b1e7b166c0321a31984
 
         private void DoInBackground(Fighter fighter)
         {
@@ -218,6 +229,32 @@ namespace Labyrinth
                 fighter.Move(this.board);
                 Thread.Sleep(500);
             }
+        }
+
+        // returns the object if there is an object in the cell or return null
+        public Object CheckForCell(int x,int y)
+        {
+            foreach(Object obj in objects)
+            {
+                if (obj.X == x && obj.Y == y)
+                    return obj;
+            }
+            return null;
+        }
+
+        // fighter gets an object
+        public void FighterGetObject(Fighter fighter)
+        {
+            Object obj= CheckForCell(fighter.X, fighter.Y);
+
+            if (obj != null)
+            {
+                fighter.AddObjectInList(obj);
+                objects.Remove(obj);
+            }
+            //else
+                //Console.WriteLine("Erreur fdp");
+                
         }
 
         // displays the board in console

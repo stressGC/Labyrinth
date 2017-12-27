@@ -23,6 +23,7 @@ namespace Labyrinth
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
         public bool IsOffensive { get => IsOffensive; set => isOffensive = value; }
+        // public List<Object> Objects { get => Objects; set => Objects.Add(value); }
 
         // CONSTRUCTOR
         public Fighter(int x, int y)
@@ -41,6 +42,12 @@ namespace Labyrinth
         }
 
         // METHODS
+
+        public void AddObjectInList(Object obj)
+        {
+            objects.Add(obj);
+        }
+
         public string Display()
         {
             return "$";
