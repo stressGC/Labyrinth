@@ -68,88 +68,112 @@ namespace Labyrinth
         }
 
         // moves the fighter randomly to a possible location near him
-        internal void Move(Cell[,] board)
+        internal void Move(Maze maze)
         {
             int rnd = random.Next(0, 4);
 
             switch (rnd) // 0, 1, 2, 3
             {
                 case 0:
-                    if (CanMoveTop(board))
+                    if (CanMoveTop(maze))
                     {
                         MoveTop();
-                        CheckForWin(board);
+                        CheckForWin(maze.Board);
                     }
                     else
                     {
-                        this.Move(board);
+                        this.Move(maze);
                     }
                     break;
                 case 1:
-                    if (CanMoveRight(board))
+                    if (CanMoveRight(maze))
                     {
                         MoveRight();
-                        CheckForWin(board);
+                        CheckForWin(maze.Board);
                     }
                     else
                     {
-                        this.Move(board);
+                        this.Move(maze);
                     }
                     break;
                 case 2:
-                    if (CanMoveBottom(board))
+                    if (CanMoveBottom(maze))
                     {
                         MoveBottom();
-                        CheckForWin(board);
+                        CheckForWin(maze.Board);
                     }
                     else
                     {
-                        this.Move(board);
+                        this.Move(maze);
                     }
                     break;
                 case 3:
-                    if (CanMoveLeft(board))
+                    if (CanMoveLeft(maze))
                     {
                         MoveLeft();
-                        CheckForWin(board);
+                        CheckForWin(maze.Board);
                     }
                     else
                     {
-                        this.Move(board);
+                        this.Move(maze);
                     }
                     break;
             }
 
         }
 
-        private bool CanMoveTop(Cell[,] board)
+        private bool CanMoveTop(Maze maze)
         {
-            if (this.Y > 0 && board[this.x, this.y - 1].IsEmpty && board[this.x, this.y - 1].Value != "1")
+            foreach(Fighter f in maze.Fighter)
+            {
+                if (f.X==this.x && f.Y==this.y-1)
+                    return false;
+            }
+  
+            if (this.Y > 0 && maze.Board[this.x, this.y - 1].IsEmpty && maze.Board[this.x, this.y - 1].Value != "1")
             {
                 return true;
             }
             return false;
         }
-        private bool CanMoveRight(Cell[,] board)
+        private bool CanMoveRight(Maze maze)
         {
-            if (this.X < board.GetLength(0) - 1 && board[this.x + 1, this.y].IsEmpty && board[this.x + 1, this.y].Value != "1")
+            foreach (Fighter f in maze.Fighter)
+            {
+                if (f.X == this.x+1 && f.Y == this.y)
+                    return false;
+            }
+
+            if (this.X < maze.Board.GetLength(0) - 1 && maze.Board[this.x + 1, this.y].IsEmpty && maze.Board[this.x + 1, this.y].Value != "1")
             {
                 return true;
             }
             return false;
         }
-        private bool CanMoveBottom(Cell[,] board)
+        private bool CanMoveBottom(Maze maze)
         {
-            if (this.Y < board.GetLength(1) - 1 && board[this.x, this.y + 1].IsEmpty && board[this.x, this.y + 1].Value != "1")
+            foreach (Fighter f in maze.Fighter)
+            {
+                if (f.X == this.x && f.Y == this.y + 1)
+                    return false;
+            }
+
+            if (this.Y < maze.Board.GetLength(1) - 1 && maze.Board[this.x, this.y + 1].IsEmpty && maze.Board[this.x, this.y + 1].Value != "1")
             {
                 return true;
             }
 
             return false;
         }
-        private bool CanMoveLeft(Cell[,] board)
+        private bool CanMoveLeft(Maze maze)
         {
-            if (this.X > 0 && board[this.x, this.y].Value != "1"&& board[this.x - 1, this.y].IsEmpty) 
+            foreach (Fighter f in maze.Fighter)
+            {
+                if (f.X == this.x - 1 && f.Y == this.y)
+                    return false;
+            }
+
+            if (this.X > 0 && maze.Board[this.x, this.y].Value != "1"&& maze.Board[this.x - 1, this.y].IsEmpty) 
             {
                 return true;
             }
