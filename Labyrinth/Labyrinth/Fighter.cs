@@ -23,6 +23,8 @@ namespace Labyrinth
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
         public bool IsOffensive { get => IsOffensive; set => isOffensive = value; }
+        internal List<Object> Objects { get => objects; set => objects = value; }
+
         // public List<Object> Objects { get => Objects; set => Objects.Add(value); }
 
         // CONSTRUCTOR
@@ -33,19 +35,15 @@ namespace Labyrinth
 
             this.life = 100;
             this.power = 10;
-            this.objects = new List<Object>();
+            this.Objects = new List<Object>();
             this.isOffensive = false;
-
-
-            //Console.WriteLine("Fighter placed at (" + x + "," + y + ")");
-            //Console.ReadKey();
         }
 
         // METHODS
 
         public void AddObjectInList(Object obj)
         {
-            objects.Add(obj);
+            Objects.Add(obj);
         }
 
         public string Display()
@@ -70,56 +68,64 @@ namespace Labyrinth
         // moves the fighter randomly to a possible location near him
         internal void Move(Cell[,] board)
         {
-            int rnd = random.Next(0, 4);
-
-            switch (rnd) // 0, 1, 2, 3
+            if(this.isOffensive)
             {
-                case 0:
-                    if (CanMoveTop(board))
-                    {
-                        MoveTop();
-                        CheckForWin(board);
-                    }
-                    else
-                    {
-                        this.Move(board);
-                    }
-                    break;
-                case 1:
-                    if (CanMoveRight(board))
-                    {
-                        MoveRight();
-                        CheckForWin(board);
-                    }
-                    else
-                    {
-                        this.Move(board);
-                    }
-                    break;
-                case 2:
-                    if (CanMoveBottom(board))
-                    {
-                        MoveBottom();
-                        CheckForWin(board);
-                    }
-                    else
-                    {
-                        this.Move(board);
-                    }
-                    break;
-                case 3:
-                    if (CanMoveLeft(board))
-                    {
-                        MoveLeft();
-                        CheckForWin(board);
-                    }
-                    else
-                    {
-                        this.Move(board);
-                    }
-                    break;
+                // try to fight
+                // 1) search for fighter around
+                // 2) fight if found
             }
+            else
+            {
+                int rnd = random.Next(0, 4);
 
+                switch (rnd) // 0, 1, 2, 3
+                {
+                    case 0:
+                        if (CanMoveTop(board))
+                        {
+                            MoveTop();
+                            CheckForWin(board);
+                        }
+                        else
+                        {
+                            this.Move(board);
+                        }
+                        break;
+                    case 1:
+                        if (CanMoveRight(board))
+                        {
+                            MoveRight();
+                            CheckForWin(board);
+                        }
+                        else
+                        {
+                            this.Move(board);
+                        }
+                        break;
+                    case 2:
+                        if (CanMoveBottom(board))
+                        {
+                            MoveBottom();
+                            CheckForWin(board);
+                        }
+                        else
+                        {
+                            this.Move(board);
+                        }
+                        break;
+                    case 3:
+                        if (CanMoveLeft(board))
+                        {
+                            MoveLeft();
+                            CheckForWin(board);
+                        }
+                        else
+                        {
+                            this.Move(board);
+                        }
+                        break;
+                }
+            }
         }
 
         private bool CanMoveTop(Cell[,] board)
@@ -177,10 +183,6 @@ namespace Labyrinth
         {
             if(board[this.x, this.y].Value=="2")
             {
-                //has win
-                Console.Clear();
-                Console.WriteLine("Fighter has won");
-                Console.ReadKey();
                 Environment.Exit(0);
             }
         }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Labyrinth
 {
@@ -14,13 +15,16 @@ namespace Labyrinth
         private Cell[,] board;
         private int width;
         private int height;
+        private int time = 0;
+        private int timeSinceLastReset = 0;
 
         private List<Fighter> fighters = new List<Fighter>();
         private List<Object> objects = new List<Object>();
 
         private static Random rnd = new Random();
-
         private static Mutex mut = new Mutex();
+        private System.Timers.Timer timer;
+
 
         // CONSTRUCTOR
         public Maze(string path)
@@ -188,6 +192,33 @@ namespace Labyrinth
             }
         }
 
+        // places the objects ramdomly on empty cells
+        public void PlaceObjectsRamdomly(List<Object> obj)
+        {
+            int numberToPlace = objects.Count;
+
+            Random rnd = new Random();
+
+            mut.WaitOne();
+
+            foreach(Object o in obj)
+            {
+                bool placed = false;
+                while (!placed)
+                {
+                    int y = rnd.Next(0, this.height);
+                    int x = rnd.Next(0, this.width);
+
+                    if (board[x, y].IsEmpty && !CheckForFighter(x, y))
+                    {
+                        objects.Add(o);
+                        placed = true;
+                    }
+                }
+            }
+            mut.ReleaseMutex();
+        }
+
         // checks coordinates to see if there is no fighters
         private bool CheckForFighter(int coordX, int coordY)
         {
@@ -205,12 +236,46 @@ namespace Labyrinth
         public void Start()
         {
             new Thread(Display).Start();
+            InitTimer();
             foreach (Fighter fighter in fighters) // à threader
             {
                 new Thread(() => DoInBackground(fighter)).Start();
             }
         }
 
+        private void InitTimer()
+        {
+            this.timer = new System.Timers.Timer(1000);
+            timer.Elapsed += Tick;
+            timer.AutoReset = true;
+            timer.Enabled = true;
+        }
+
+        private void Tick(object sender, ElapsedEventArgs e)
+        {
+            time++;
+            timeSinceLastReset++;
+
+            if(timeSinceLastReset > 5)
+            {
+                timeSinceLastReset = 0;
+                this.ResetObjects();
+            }
+        }
+
+        private void ResetObjects()
+        {
+            List<Object> toPlace = new List<Object>();
+
+            foreach(Fighter fighter in fighters) // for each fighter
+            {
+                foreach(Object obj in fighter.Objects) // for each one of its objects
+                {
+                    toPlace.Add(obj); // copy the object to place again
+                }
+                fighter.Objects.Clear(); // clear fighter's objects
+            }
+        }
 
         private void DoInBackground(Fighter fighter)
         {
@@ -247,8 +312,6 @@ namespace Labyrinth
                 objects.Remove(obj);
             }
             mut.ReleaseMutex();
-            //else
-                //Console.WriteLine("Erreur fdp");
                 
         }
 
@@ -279,6 +342,10 @@ namespace Labyrinth
                 {
                     WriteAt(obj.Display(), obj.X, obj.Y);
                 }
+
+                // print the timer
+                WriteAt("Time : "+timeSinceLastReset.ToString()+"sec", 25, 3);
+
                 Thread.Sleep(100);
             }
         }
