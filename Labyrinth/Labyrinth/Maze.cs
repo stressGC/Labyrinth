@@ -145,6 +145,9 @@ namespace Labyrinth
 
         // ACCESSORS
 
+        public Cell[,] Board { get => board; }
+        public List<Fighter> Fighter { get => fighters; }
+
 
         // METHODS
 
@@ -283,10 +286,15 @@ namespace Labyrinth
             Console.WriteLine("New Task with id : " + number.ToString());
             while(true)
             {
-                fighter.Move(this.board);
+                fighter.Move(this);
                 FighterGetObject(fighter);
                 Thread.Sleep(500);
             }
+        }
+
+        public void Fight()
+        {
+            
         }
 
         // returns the object if there is an object in the cell or return null
