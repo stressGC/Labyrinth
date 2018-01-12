@@ -65,15 +65,79 @@ namespace Labyrinth
             }
         }
 
+        private Fighter LookForEnnemy(Maze maze)
+        {
+            foreach(Fighter fighter in maze.Fighter)
+            {
+                if(this.IsNextTo(fighter))
+                {
+                    return fighter;
+                }
+            }
+            return null;
+        }
+
+        private bool IsNextTo(Fighter f)
+        {
+            if(this.X == f.X && this.Y - 1 == f.Y) // top
+            {
+                return true;
+            }
+            else if(this.X + 1 == f.X && this.Y == f.Y) // right
+            {
+                return true;
+            }
+            else if(this.X == f.X && this.Y + 1 == f.Y)// bottom
+            {
+                return true;
+            }
+            else if(this.X - 1 == f.X && this.Y == f.Y) // left
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private int GetAttackPower()
+        {
+            int attackPower = power;
+            
+            foreach(Object obj in objects)
+            {
+                if(obj.isUsable())
+                {
+                    attackPower += obj.Damage;
+                    obj.Damage--;
+                }
+            }
+            return attackPower;
+        }
+
+        private void SetAttackPower(int i)
+        {
+            objects[objects.Count - 1].Damage += i;
+        }
+
         // moves the fighter randomly to a possible location near him
         internal void Move(Maze maze)
         {
-            if(this.isOffensive)
+            if (this.isOffensive)
             {
-<<<<<<< HEAD
                 // try to fight
                 // 1) search for fighter around
                 // 2) fight if found
+
+                Fighter ennemy = this.LookForEnnemy(maze);
+
+                if(ennemy != null)
+                {
+                    ennemy.life -= this.GetAttackPower();
+                    if(ennemy.life < 0)
+                    {
+                        maze.Fighter.Remove(ennemy);
+                    }
+                    this.SetAttackPower(-1);
+                }
             }
             else
             {
@@ -81,108 +145,63 @@ namespace Labyrinth
 
                 switch (rnd) // 0, 1, 2, 3
                 {
+
                     case 0:
-                        if (CanMoveTop(board))
+                        if (CanMoveTop(maze))
                         {
                             MoveTop();
-                            CheckForWin(board);
+                            CheckForWin(maze.Board);
                         }
                         else
                         {
-                            this.Move(board);
+                            this.Move(maze);
                         }
                         break;
                     case 1:
-                        if (CanMoveRight(board))
+                        if (CanMoveRight(maze))
                         {
                             MoveRight();
-                            CheckForWin(board);
+                            CheckForWin(maze.Board);
                         }
                         else
                         {
-                            this.Move(board);
+                            this.Move(maze);
                         }
                         break;
                     case 2:
-                        if (CanMoveBottom(board))
+                        if (CanMoveBottom(maze))
                         {
                             MoveBottom();
-                            CheckForWin(board);
+                            CheckForWin(maze.Board);
                         }
                         else
                         {
-                            this.Move(board);
+                            this.Move(maze);
                         }
                         break;
                     case 3:
-                        if (CanMoveLeft(board))
+                        if (CanMoveLeft(maze))
                         {
                             MoveLeft();
-                            CheckForWin(board);
+                            CheckForWin(maze.Board);
                         }
                         else
                         {
-                            this.Move(board);
+                            this.Move(maze);
                         }
                         break;
                 }
-=======
-                case 0:
-                    if (CanMoveTop(maze))
-                    {
-                        MoveTop();
-                        CheckForWin(maze.Board);
-                    }
-                    else
-                    {
-                        this.Move(maze);
-                    }
-                    break;
-                case 1:
-                    if (CanMoveRight(maze))
-                    {
-                        MoveRight();
-                        CheckForWin(maze.Board);
-                    }
-                    else
-                    {
-                        this.Move(maze);
-                    }
-                    break;
-                case 2:
-                    if (CanMoveBottom(maze))
-                    {
-                        MoveBottom();
-                        CheckForWin(maze.Board);
-                    }
-                    else
-                    {
-                        this.Move(maze);
-                    }
-                    break;
-                case 3:
-                    if (CanMoveLeft(maze))
-                    {
-                        MoveLeft();
-                        CheckForWin(maze.Board);
-                    }
-                    else
-                    {
-                        this.Move(maze);
-                    }
-                    break;
->>>>>>> b68cf574a2f40c710c4282030f340fe0b4d3434d
             }
         }
 
         private bool CanMoveTop(Maze maze)
         {
-            foreach(Fighter f in maze.Fighter)
+            foreach (Fighter f in maze.Fighter)
             {
-                if (f.X==this.x && f.Y==this.y-1)
+                if (f.X == this.x && f.Y == this.y - 1)
                     return false;
             }
-  
+
             if (this.Y > 0 && maze.Board[this.x, this.y - 1].IsEmpty && maze.Board[this.x, this.y - 1].Value != "1")
             {
                 return true;
@@ -193,7 +212,7 @@ namespace Labyrinth
         {
             foreach (Fighter f in maze.Fighter)
             {
-                if (f.X == this.x+1 && f.Y == this.y)
+                if (f.X == this.x + 1 && f.Y == this.y)
                     return false;
             }
 
@@ -226,7 +245,7 @@ namespace Labyrinth
                     return false;
             }
 
-            if (this.X > 0 && maze.Board[this.x, this.y].Value != "1"&& maze.Board[this.x - 1, this.y].IsEmpty) 
+            if (this.X > 0 && maze.Board[this.x, this.y].Value != "1" && maze.Board[this.x - 1, this.y].IsEmpty)
             {
                 return true;
             }
@@ -252,7 +271,7 @@ namespace Labyrinth
 
         private void CheckForWin(Cell[,] board)
         {
-            if(board[this.x, this.y].Value=="2")
+            if (board[this.x, this.y].Value == "2")
             {
                 Environment.Exit(0);
             }

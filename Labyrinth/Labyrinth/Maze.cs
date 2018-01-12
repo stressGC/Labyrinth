@@ -148,7 +148,6 @@ namespace Labyrinth
         public Cell[,] Board { get => board; }
         public List<Fighter> Fighter { get => fighters; }
 
-
         // METHODS
 
         // places the fighter at random spots of the board
@@ -278,6 +277,8 @@ namespace Labyrinth
                 }
                 fighter.Objects.Clear(); // clear fighter's objects
             }
+
+            PlaceObjectsRamdomly(toPlace);
         }
 
         private void DoInBackground(Fighter fighter)
@@ -352,7 +353,8 @@ namespace Labyrinth
                 }
 
                 // print the timer
-                WriteAt("Time : "+timeSinceLastReset.ToString()+"sec", 25, 3);
+                WriteAt("Time : "+time.ToString()+" sec", 25, 2);
+                WriteAt("Reset : " + (5-timeSinceLastReset) + " sec", 25, 3);
 
                 Thread.Sleep(100);
             }
